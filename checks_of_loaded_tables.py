@@ -3,12 +3,13 @@ spark.sql("SHOW TABLES").show(truncate=False)
 # database
 spark.sql("SHOW DATABASES").show(truncate=False)
 # check bad records table
-df = spark.sql("SELECT * FROM LH_AdventureWorks.bad_records LIMIT 1000")
+df = spark.sql("SELECT * FROM LH_AdventureWorks.bad_records order by timestamp DESC LIMIT 1000")
 display(df)
 # check log bronze table
-df1 = spark.sql("SELECT * FROM LH_AdventureWorks.load_log_bronze WHERE row_amount_diff >0 LIMIT 1000")
+e
+df1 = spark.sql("SELECT * FROM LH_AdventureWorks.load_log_bronze WHERE row_amount_diff >0 order by load_timestamp_utc_bronze DESC LIMIT 1000")
 display(df1)
 print(f"Incorrect rows : {df1.count()}")
-df2 = spark.sql("SELECT * FROM LH_AdventureWorks.load_log_bronze WHERE row_amount_diff = 0 LIMIT 1000")
+df2 = spark.sql("SELECT * FROM LH_AdventureWorks.load_log_bronze WHERE row_amount_diff = 0 order by load_timestamp_utc_bronze DESC LIMIT 1000")
 display(df2)
 print(f"Correct rows: {df2.count()}")
